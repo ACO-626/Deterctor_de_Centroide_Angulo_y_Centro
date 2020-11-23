@@ -82,6 +82,7 @@ namespace Deterctor_de_Contornos
             detectarBorde();
 
         }
+
         #endregion
 
         private void detectarCentroToolStripMenuItem_Click(object sender, EventArgs e)
@@ -90,7 +91,7 @@ namespace Deterctor_de_Contornos
 
         }
 
-
+        #region detectarCentro
         private void detectarCentro()
         {
             matrizImagen = new int[img.Width, img.Height];
@@ -127,18 +128,40 @@ namespace Deterctor_de_Contornos
             pictureBox2.Image = imgout.Bitmap;
 
         }
+        #endregion
 
+        #region ContarObjetos
         private void button4_Click(object sender, EventArgs e)
-        {
+        {   
+            if(imgout!=null)
+            {
+                contarObjetos();
+            }
+            else
+            {
+                if(img!=null)
+                {
+                    detectarBorde();
+                    contarObjetos();
+                }else
+                {
+                    MessageBox.Show("Debe cargar una imagen antes de buscar el borde", "Sin imagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+               
+            }
             
         }
 
         private void contarObjetos()
         {
             int numero = 0;
-            
-
+            Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+            Mat mat = new Mat();
+            CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+            lbNumObj.Text = "Número de objetos: " + contours.Size.ToString();
             //findContours(CHAIN_APPROX_METHOD.CV_CHAIN_APPROX_SIMPLE, RETR_TYPE.CV_RETR_EXTERNAL);
         }
+        #endregion
+
     }
 }
