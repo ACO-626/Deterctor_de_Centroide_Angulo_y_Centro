@@ -40,21 +40,24 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnBorde = new System.Windows.Forms.Button();
-            this.numericBorde2 = new System.Windows.Forms.NumericUpDown();
-            this.numericBorde1 = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.lbNumObj = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.numericBorde1 = new System.Windows.Forms.NumericUpDown();
+            this.numericBorde2 = new System.Windows.Forms.NumericUpDown();
+            this.btnBorde = new System.Windows.Forms.Button();
+            this.btnCentros = new System.Windows.Forms.Button();
+            this.numericSenCount = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBorde2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorde1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBorde2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSenCount)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -107,27 +110,27 @@
             // detectarBordeToolStripMenuItem
             // 
             this.detectarBordeToolStripMenuItem.Name = "detectarBordeToolStripMenuItem";
-            this.detectarBordeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.detectarBordeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.detectarBordeToolStripMenuItem.Text = "Detectar Borde";
             this.detectarBordeToolStripMenuItem.Click += new System.EventHandler(this.detectarBordeToolStripMenuItem_Click);
             // 
             // detectarCentroToolStripMenuItem
             // 
             this.detectarCentroToolStripMenuItem.Name = "detectarCentroToolStripMenuItem";
-            this.detectarCentroToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.detectarCentroToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.detectarCentroToolStripMenuItem.Text = "Detectar Centro";
             this.detectarCentroToolStripMenuItem.Click += new System.EventHandler(this.detectarCentroToolStripMenuItem_Click);
             // 
             // detectarCentroideToolStripMenuItem
             // 
             this.detectarCentroideToolStripMenuItem.Name = "detectarCentroideToolStripMenuItem";
-            this.detectarCentroideToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.detectarCentroideToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.detectarCentroideToolStripMenuItem.Text = "Detectar Centroide";
             // 
             // detectarÁnguloToolStripMenuItem
             // 
             this.detectarÁnguloToolStripMenuItem.Name = "detectarÁnguloToolStripMenuItem";
-            this.detectarÁnguloToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.detectarÁnguloToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.detectarÁnguloToolStripMenuItem.Text = "Detectar Ángulo";
             // 
             // pictureBox1
@@ -150,11 +153,13 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.numericSenCount);
+            this.panel1.Controls.Add(this.btnCentros);
             this.panel1.Controls.Add(this.lbNumObj);
             this.panel1.Controls.Add(this.button4);
             this.panel1.Controls.Add(this.button3);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.numericBorde1);
             this.panel1.Controls.Add(this.numericBorde2);
@@ -165,32 +170,54 @@
             this.panel1.Size = new System.Drawing.Size(1331, 81);
             this.panel1.TabIndex = 3;
             // 
-            // btnBorde
+            // lbNumObj
             // 
-            this.btnBorde.Location = new System.Drawing.Point(25, 3);
-            this.btnBorde.Name = "btnBorde";
-            this.btnBorde.Size = new System.Drawing.Size(76, 75);
-            this.btnBorde.TabIndex = 0;
-            this.btnBorde.Text = "BORDE";
-            this.btnBorde.UseVisualStyleBackColor = true;
-            this.btnBorde.Click += new System.EventHandler(this.btnBorde_Click);
+            this.lbNumObj.AutoSize = true;
+            this.lbNumObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbNumObj.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lbNumObj.Location = new System.Drawing.Point(421, 22);
+            this.lbNumObj.Name = "lbNumObj";
+            this.lbNumObj.Size = new System.Drawing.Size(41, 31);
+            this.lbNumObj.TabIndex = 8;
+            this.lbNumObj.Text = "---";
             // 
-            // numericBorde2
+            // button4
             // 
-            this.numericBorde2.Location = new System.Drawing.Point(107, 58);
-            this.numericBorde2.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericBorde2.Name = "numericBorde2";
-            this.numericBorde2.Size = new System.Drawing.Size(53, 20);
-            this.numericBorde2.TabIndex = 1;
-            this.numericBorde2.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
+            this.button4.Location = new System.Drawing.Point(339, 6);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(76, 75);
+            this.button4.TabIndex = 7;
+            this.button4.Text = "CONTAR";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1130, 46);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(189, 32);
+            this.button3.TabIndex = 6;
+            this.button3.Text = "CENTRÓIDDE";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(257, 6);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(76, 75);
+            this.button2.TabIndex = 5;
+            this.button2.Text = "ÁNGULO";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label1.Location = new System.Drawing.Point(107, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "LÍMITES ";
             // 
             // numericBorde1
             // 
@@ -209,64 +236,69 @@
             0,
             0});
             // 
-            // label1
+            // numericBorde2
             // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(107, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "LÍMITES ";
+            this.numericBorde2.Location = new System.Drawing.Point(107, 58);
+            this.numericBorde2.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericBorde2.Name = "numericBorde2";
+            this.numericBorde2.Size = new System.Drawing.Size(53, 20);
+            this.numericBorde2.TabIndex = 1;
+            this.numericBorde2.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
-            // button1
+            // btnBorde
             // 
-            this.button1.Location = new System.Drawing.Point(175, 6);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(76, 75);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "CENTROS";
-            this.button1.UseVisualStyleBackColor = true;
-            
+            this.btnBorde.Location = new System.Drawing.Point(25, 3);
+            this.btnBorde.Name = "btnBorde";
+            this.btnBorde.Size = new System.Drawing.Size(76, 75);
+            this.btnBorde.TabIndex = 0;
+            this.btnBorde.Text = "BORDE";
+            this.btnBorde.UseVisualStyleBackColor = true;
+            this.btnBorde.Click += new System.EventHandler(this.btnBorde_Click);
             // 
-            // button2
+            // btnCentros
             // 
-            this.button2.Location = new System.Drawing.Point(257, 6);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(76, 75);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "ÁNGULO";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btnCentros.Location = new System.Drawing.Point(175, 6);
+            this.btnCentros.Name = "btnCentros";
+            this.btnCentros.Size = new System.Drawing.Size(76, 75);
+            this.btnCentros.TabIndex = 9;
+            this.btnCentros.Text = "CENTROS";
+            this.btnCentros.UseVisualStyleBackColor = true;
+            this.btnCentros.Click += new System.EventHandler(this.btnCentros_Click);
             // 
-            // button3
+            // numericSenCount
             // 
-            this.button3.Location = new System.Drawing.Point(1130, 46);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(189, 32);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "CENTRÓIDDE";
-            this.button3.UseVisualStyleBackColor = true;
+            this.numericSenCount.Location = new System.Drawing.Point(421, 58);
+            this.numericSenCount.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericSenCount.Name = "numericSenCount";
+            this.numericSenCount.Size = new System.Drawing.Size(53, 20);
+            this.numericSenCount.TabIndex = 10;
+            this.numericSenCount.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
             // 
-            // button4
+            // label2
             // 
-            this.button4.Location = new System.Drawing.Point(339, 6);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(76, 75);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "CONTAR";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // lbNumObj
-            // 
-            this.lbNumObj.AutoSize = true;
-            this.lbNumObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNumObj.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbNumObj.Location = new System.Drawing.Point(421, 22);
-            this.lbNumObj.Name = "lbNumObj";
-            this.lbNumObj.Size = new System.Drawing.Size(41, 31);
-            this.lbNumObj.TabIndex = 8;
-            this.lbNumObj.Text = "---";
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(480, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "SENSIBILIDAD";
             // 
             // FormPrincipal
             // 
@@ -287,8 +319,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBorde2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorde1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBorde2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSenCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,9 +347,11 @@
         private System.Windows.Forms.NumericUpDown numericBorde2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lbNumObj;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button btnCentros;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown numericSenCount;
     }
 }
 
