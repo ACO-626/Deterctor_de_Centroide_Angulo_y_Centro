@@ -40,24 +40,24 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numericSenCount = new System.Windows.Forms.NumericUpDown();
+            this.btnCentros = new System.Windows.Forms.Button();
             this.lbNumObj = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnCentro = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.numericBorde1 = new System.Windows.Forms.NumericUpDown();
             this.numericBorde2 = new System.Windows.Forms.NumericUpDown();
             this.btnBorde = new System.Windows.Forms.Button();
-            this.btnCentros = new System.Windows.Forms.Button();
-            this.numericSenCount = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSenCount)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorde1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorde2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericSenCount)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -156,7 +156,7 @@
             this.panel1.Controls.Add(this.btnCentros);
             this.panel1.Controls.Add(this.lbNumObj);
             this.panel1.Controls.Add(this.button4);
-            this.panel1.Controls.Add(this.button3);
+            this.panel1.Controls.Add(this.btnCentro);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.numericBorde1);
@@ -168,12 +168,49 @@
             this.panel1.Size = new System.Drawing.Size(1331, 81);
             this.panel1.TabIndex = 3;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label2.Location = new System.Drawing.Point(519, 65);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(81, 13);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "SENSIBILIDAD";
+            // 
+            // numericSenCount
+            // 
+            this.numericSenCount.Location = new System.Drawing.Point(460, 58);
+            this.numericSenCount.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericSenCount.Name = "numericSenCount";
+            this.numericSenCount.Size = new System.Drawing.Size(53, 20);
+            this.numericSenCount.TabIndex = 10;
+            this.numericSenCount.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            // 
+            // btnCentros
+            // 
+            this.btnCentros.Location = new System.Drawing.Point(175, 6);
+            this.btnCentros.Name = "btnCentros";
+            this.btnCentros.Size = new System.Drawing.Size(115, 75);
+            this.btnCentros.TabIndex = 9;
+            this.btnCentros.Text = "CENTROIDE";
+            this.btnCentros.UseVisualStyleBackColor = true;
+            this.btnCentros.Click += new System.EventHandler(this.btnCentros_Click);
+            // 
             // lbNumObj
             // 
             this.lbNumObj.AutoSize = true;
             this.lbNumObj.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbNumObj.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lbNumObj.Location = new System.Drawing.Point(421, 22);
+            this.lbNumObj.Location = new System.Drawing.Point(460, 22);
             this.lbNumObj.Name = "lbNumObj";
             this.lbNumObj.Size = new System.Drawing.Size(41, 31);
             this.lbNumObj.TabIndex = 8;
@@ -181,7 +218,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(339, 6);
+            this.button4.Location = new System.Drawing.Point(378, 6);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(76, 75);
             this.button4.TabIndex = 7;
@@ -189,23 +226,25 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button3
+            // btnCentro
             // 
-            this.button3.Location = new System.Drawing.Point(1130, 46);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(189, 32);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "CENTRÓIDDE";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btnCentro.Location = new System.Drawing.Point(795, 46);
+            this.btnCentro.Name = "btnCentro";
+            this.btnCentro.Size = new System.Drawing.Size(189, 32);
+            this.btnCentro.TabIndex = 6;
+            this.btnCentro.Text = "CENTRO DE OBJETO";
+            this.btnCentro.UseVisualStyleBackColor = true;
+            this.btnCentro.Click += new System.EventHandler(this.btnCentro_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(257, 6);
+            this.button2.Location = new System.Drawing.Point(296, 6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(76, 75);
             this.button2.TabIndex = 5;
             this.button2.Text = "ÁNGULO";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label1
             // 
@@ -261,43 +300,6 @@
             this.btnBorde.UseVisualStyleBackColor = true;
             this.btnBorde.Click += new System.EventHandler(this.btnBorde_Click);
             // 
-            // btnCentros
-            // 
-            this.btnCentros.Location = new System.Drawing.Point(175, 6);
-            this.btnCentros.Name = "btnCentros";
-            this.btnCentros.Size = new System.Drawing.Size(76, 75);
-            this.btnCentros.TabIndex = 9;
-            this.btnCentros.Text = "CENTROS";
-            this.btnCentros.UseVisualStyleBackColor = true;
-            this.btnCentros.Click += new System.EventHandler(this.btnCentros_Click);
-            // 
-            // numericSenCount
-            // 
-            this.numericSenCount.Location = new System.Drawing.Point(421, 58);
-            this.numericSenCount.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericSenCount.Name = "numericSenCount";
-            this.numericSenCount.Size = new System.Drawing.Size(53, 20);
-            this.numericSenCount.TabIndex = 10;
-            this.numericSenCount.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label2.Location = new System.Drawing.Point(480, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "SENSIBILIDAD";
-            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -310,6 +312,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "FormPrincipal";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Detector de contorno";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -317,9 +320,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericSenCount)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorde1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericBorde2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericSenCount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -343,7 +346,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericBorde1;
         private System.Windows.Forms.NumericUpDown numericBorde2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnCentro;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label lbNumObj;
         private System.Windows.Forms.Button button4;

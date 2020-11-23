@@ -113,13 +113,13 @@ namespace Deterctor_de_Contornos
         }
         #endregion
 
-        #region detectarCentro
+        #region detectarCentroide
         private void detectarCentro()
         {
             matrizImagen = new int[img.Height, img.Width];
             
 
-            if (img!=null)
+            /*if (img!=null)
             {
                 for(int i = 0;i<img.Height;i++)
                 {
@@ -133,7 +133,7 @@ namespace Deterctor_de_Contornos
                         
                     }
                 }
-            }
+            }*/
 
             Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
             Mat mat = new Mat();
@@ -156,7 +156,7 @@ namespace Deterctor_de_Contornos
                     CvInvoke.DrawContours(imgout, contours, x, new MCvScalar(255, 255, 255));
                     MCvMoments moments = CvInvoke.Moments(imgout.Mat, false);
                     Point centroide = new Point((int)(moments.M10 / moments.M00), (int)(moments.M01 / moments.M00));
-
+                    
                     papel = pictureBox1.CreateGraphics();
                     pluma.Width = 5;
                     pluma.Color = Color.DarkRed;
@@ -166,7 +166,7 @@ namespace Deterctor_de_Contornos
             }
             detectarBorde();
             //pictureBox2.Image = imgout.Bitmap;
-
+            
 
         }
         #endregion
@@ -215,6 +215,7 @@ namespace Deterctor_de_Contornos
 
         #endregion
 
+        #region btnCentros
         private void btnCentros_Click(object sender, EventArgs e)
         {
             if (img != null)
@@ -234,5 +235,76 @@ namespace Deterctor_de_Contornos
                 MessageBox.Show("Debe cargar una imagen antes de buscar el borde", "Sin imagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        #endregion
+
+        private void btnCentro_Click(object sender, EventArgs e)
+        {
+            
+            Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+            Mat mat = new Mat();
+            CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+            
+            for(int i=0;i<contours.Size;i++)
+            {
+                Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
+                RotatedRect box = CvInvoke.MinAreaRect(contours[i]);
+                PointF[] Vertices = box.GetVertices();
+                PointF point = box.Center;
+                papel = pictureBox1.CreateGraphics();
+                pluma.Width = 5;
+                pluma.Color = Color.DarkBlue;
+                papel.DrawRectangle(pluma, point.X, point.Y, 5, 5);
+            }
+            
+            /*PointF edge1 = new PointF(Vertices[1].X - Vertices[0].X,
+            Vertices[1].Y - Vertices[0].Y);
+            PointF edge2 = new PointF(Vertices[2].X - Vertices[1].X, Vertices[2].Y - Vertices[1].Y);
+            double edge1Magnitude = Math.Sqrt(Math.Pow(edge1.X, 2) + Math.Pow(edge1.Y, 2));
+            double edge2Magnitude = Math.Sqrt(Math.Pow(edge2.X, 2) + Math.Pow(edge2.Y, 2));
+            PointF primaryEdge = edge1Magnitude > edge2Magnitude ? edge1 : edge2;
+            PointF reference = new PointF(Vertices[1].X, Vertices[0].Y);
+            double thetaRads = Math.Acos(Math.Sqrt(Math.Pow((primaryEdge.X * reference.X),2) + Math.Pow((primaryEdge.Y * reference.Y),2))/ (Math.Sqrt(Math.Pow(primaryEdge.X,2)+Math.Pow(reference.X,2))* Math.Sqrt(Math.Pow(primaryEdge.Y, 2) + Math.Pow(reference.Y, 2))));
+            double thetaDeg = thetaRads * 180 / Math.PI;
+            MessageBox.Show(thetaDeg.ToString());*/
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+            Mat mat = new Mat();
+            CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+
+
+            for(int i=0;i<contours.Size;i++)
+            {
+                Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
+                RotatedRect box = CvInvoke.MinAreaRect(contours[i]);
+                PointF[] Vertices = box.GetVertices();
+                //MessageBox.Show(Vertices[0].X.ToString() + "," + Vertices[0].Y.ToString() + " " + Vertices[1].X.ToString() + "," + Vertices[1].Y.ToString());
+                //MessageBox.Show(Vertices[2].X.ToString() + "," + Vertices[2].Y.ToString() + " " + Vertices[3].X.ToString() + "," + Vertices[3].Y.ToString());
+                //Vector AB
+                PointF vecAB = new PointF((Vertices[1].X) - (Vertices[0].X), (Vertices[1].Y) - (Vertices[0].Y));
+                //MessageBox.Show(vecAB.ToString());
+                //VectorHorizontal
+                PointF vecHor = new PointF(1, 0);
+                //Modulo de Vab
+                double modAB = Math.Sqrt(Math.Pow(vecAB.X, 2) + Math.Pow(vecAB.Y, 2));
+                double modHor = 1.0;
+                double proPunto = vecAB.X * vecHor.X;
+
+                double anguloRad = Math.Acos(proPunto / modAB * modHor);
+                double anguloDeg = (anguloRad * 180) / Math.PI;
+                //MessageBox.Show(anguloDeg.ToString());
+                var blob = CvInvoke.BoundingRectangle(contours[i]);
+                blob.Y -= 5;
+                CvInvoke.PutText(img, "Angulo:" + anguloDeg.ToString(), blob.Location, Emgu.CV.CvEnum.FontFace.HersheySimplex, 0.5, new MCvScalar(255, 255, 255));
+                //CvInvoke.PutText(imgout, "Angulo: " + anguloDeg.ToString(), blob.Location, Emgu.CV.CvEnum.FontFace.HersheyPlain, 1.0, new MCvScalar(100));
+                pictureBox1.Image = img.ToBitmap();
+                //pictureBox2.Image = imgout.ToBitmap();
+            }
+
+
+        }
     }
+    
 }
