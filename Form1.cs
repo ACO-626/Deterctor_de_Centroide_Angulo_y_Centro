@@ -284,11 +284,20 @@ namespace Deterctor_de_Contornos
                 //MessageBox.Show(Vertices[2].X.ToString() + "," + Vertices[2].Y.ToString() + " " + Vertices[3].X.ToString() + "," + Vertices[3].Y.ToString());
                 //Vector AB
                 PointF vecAB = new PointF((Vertices[1].X) - (Vertices[0].X), (Vertices[1].Y) - (Vertices[0].Y));
+                PointF vecBC = new PointF((Vertices[2].X) - (Vertices[1].X), (Vertices[2].Y) - (Vertices[1].Y));
+                //Modulo de Vab
+                double modAB = Math.Sqrt(Math.Pow(vecAB.X, 2) + Math.Pow(vecAB.Y, 2));
+                double modBC = Math.Sqrt(Math.Pow(vecBC.X, 2) + Math.Pow(vecBC.Y, 2));
+                if(modAB<modBC)
+                {
+                    vecAB = vecBC;
+                    modAB = modBC;
+                }
                 //MessageBox.Show(vecAB.ToString());
                 //VectorHorizontal
                 PointF vecHor = new PointF(1, 0);
                 //Modulo de Vab
-                double modAB = Math.Sqrt(Math.Pow(vecAB.X, 2) + Math.Pow(vecAB.Y, 2));
+                //double modAB = Math.Sqrt(Math.Pow(vecAB.X, 2) + Math.Pow(vecAB.Y, 2));            
                 double modHor = 1.0;
                 double proPunto = vecAB.X * vecHor.X;
 
