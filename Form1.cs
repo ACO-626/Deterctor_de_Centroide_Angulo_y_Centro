@@ -24,6 +24,10 @@ namespace Deterctor_de_Contornos
         //Imagen que se muestra
         Image<Gray, byte> imgout;
 
+        //Graficos
+        Graphics papel;
+        Pen pluma = new Pen(Color.DarkGreen);
+
 
         public FormPrincipal()
         {
@@ -134,33 +138,35 @@ namespace Deterctor_de_Contornos
             Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
             Mat mat = new Mat();
             CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
-            for (int i = 0; i < img.Height; i++)
+            
+            for (int x=0;x<contours.Size;x++)
             {
-                for (int j = 0; j < img.Width; j++)
+                for (int i = 0; i < img.Height; i++)
                 {
-
-                    imgout[i, j] = new Gray(0);
-
-                }
-            }
-            CvInvoke.DrawContours(imgout, contours, 0, new MCvScalar(255, 255, 255));
-            CvInvoke.cvGetCentralMoment();
-            //Representación del contenido de la matriz
-            /*for (int i = 0; i < img.Width; i++)
-            {
-                for (int j = 0; j < img.Height; j++)
-                {
-                    if (matrizImagen[i,j]==0)
+                    for (int j = 0; j < img.Width; j++)
                     {
+
                         imgout[i, j] = new Gray(0);
-                    }else
-                    {
-                        imgout[i, j] = new Gray(255);
-                    }
 
+                    }
                 }
-            }*/
-            pictureBox2.Image = imgout.Bitmap;
+                var area = CvInvoke.ContourArea(contours[x]);
+                if (area > (int)numericSenCount.Value)
+                {
+                    CvInvoke.DrawContours(imgout, contours, x, new MCvScalar(255, 255, 255));
+                    MCvMoments moments = CvInvoke.Moments(imgout.Mat, false);
+                    Point centroide = new Point((int)(moments.M10 / moments.M00), (int)(moments.M01 / moments.M00));
+
+                    papel = pictureBox1.CreateGraphics();
+                    pluma.Width = 5;
+                    pluma.Color = Color.DarkRed;
+                    papel.DrawRectangle(pluma, (int)(moments.M10 / moments.M00), (int)(moments.M01 / moments.M00), 5, 5);
+                }
+                
+            }
+            detectarBorde();
+            //pictureBox2.Image = imgout.Bitmap;
+
 
         }
         #endregion
