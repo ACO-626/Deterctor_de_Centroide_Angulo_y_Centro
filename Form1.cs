@@ -59,14 +59,22 @@ namespace Deterctor_de_Contornos
                     GrayImg = img.Convert<Gray, byte>().ThresholdBinary(new Gray((int)numericBorde1.Value), new Gray((int)numericBorde2.Value));
                     Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
                     Mat hier = new Mat();
+                
+                        imgout = new Image<Gray, byte>(img.Width, img.Height, new Gray(0));
+                
+                    
+                    
+                        CvInvoke.FindContours(GrayImg, contours, hier, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+                        CvInvoke.DrawContours(imgout, contours, -1, new MCvScalar(255, 255, 255));
+                       
+                    
 
-                    imgout = new Image<Gray, byte>(img.Width, img.Height, new Gray(0));
+               
+                pictureBox2.Image = imgout.Bitmap;
 
-                    CvInvoke.FindContours(GrayImg, contours, hier, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
-                    CvInvoke.DrawContours(imgout, contours, -1, new MCvScalar(255, 255, 255));
 
-                    pictureBox2.Image = imgout.Bitmap;
-                }else
+            }
+            else
                 {
                     MessageBox.Show("Debe cargar una imagen antes de buscar el borde", "Sin imagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -246,14 +254,20 @@ namespace Deterctor_de_Contornos
             
             for(int i=0;i<contours.Size;i++)
             {
-                Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
-                RotatedRect box = CvInvoke.MinAreaRect(contours[i]);
-                PointF[] Vertices = box.GetVertices();
-                PointF point = box.Center;
-                papel = pictureBox1.CreateGraphics();
-                pluma.Width = 5;
-                pluma.Color = Color.DarkBlue;
-                papel.DrawRectangle(pluma, point.X, point.Y, 5, 5);
+
+                var area = CvInvoke.ContourArea(contours[i]);
+                if (area > (int)numericSenCount.Value)
+                {
+                    Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
+                    RotatedRect box = CvInvoke.MinAreaRect(contours[i]);
+                    PointF[] Vertices = box.GetVertices();
+                    PointF point = box.Center;
+                    papel = pictureBox1.CreateGraphics();
+                    pluma.Width = 5;
+                    pluma.Color = Color.DarkBlue;
+                    papel.DrawRectangle(pluma, point.X, point.Y, 5, 5);
+                }
+                
             }
             
             /*PointF edge1 = new PointF(Vertices[1].X - Vertices[0].X,
@@ -304,6 +318,7 @@ namespace Deterctor_de_Contornos
                 double anguloRad = Math.Acos(proPunto / modAB * modHor);
                 double anguloDeg = (anguloRad * 180) / Math.PI;
                 //MessageBox.Show(anguloDeg.ToString());
+               
                 var blob = CvInvoke.BoundingRectangle(contours[i]);
                 blob.Y -= 5;
                 CvInvoke.PutText(img, "Angulo:" + anguloDeg.ToString(), blob.Location, Emgu.CV.CvEnum.FontFace.HersheySimplex, 0.5, new MCvScalar(255, 255, 255));
@@ -312,6 +327,139 @@ namespace Deterctor_de_Contornos
                 //pictureBox2.Image = imgout.ToBitmap();
             }
 
+
+        }
+
+        private void btnInfo_Click(object sender, EventArgs e)
+        {
+
+
+            Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+            Mat mat = new Mat();
+            CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+            for (int i = 0; i < contours.Size; i++)
+            {
+                var area = CvInvoke.ContourArea(contours[i]);
+                if (area > (int)numericSenCount.Value)
+                {
+                    var blob = CvInvoke.BoundingRectangle(contours[i]);
+                    blob.Y -= 5;
+                    CvInvoke.PutText(img, "#:" + (i + 1).ToString(), blob.Location, Emgu.CV.CvEnum.FontFace.HersheySimplex, 0.5, new MCvScalar(255, 255, 255));
+                }
+                
+
+            }
+            //pictureBox1.Image = img.ToBitmap();
+            for (int i = 0; i < contours.Size; i++)
+            {         
+                Rectangle rect = CvInvoke.BoundingRectangle(contours[i]);
+                papel = pictureBox1.CreateGraphics();
+                pluma.Width = 5;
+                pluma.Color = Color.Green;
+                papel.DrawRectangle(pluma, rect);
+
+            }
+
+
+            if (img != null)
+            {
+                if (imgout != null)
+                {
+                    detectarCentro();
+                }
+                else
+                {
+                    detectarBorde();
+                    detectarCentro();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe cargar una imagen antes de buscar el borde", "Sin imagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            /*if (img != null)
+            {
+
+                if (imgout != null)
+                {
+                    Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+                    Mat mat = new Mat();
+                    CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+                    for (int i=0;i<contours.Size;i++)
+                    {                        
+                        var area = CvInvoke.ContourArea(contours[i]);
+                        if (area > (int)numericSenCount.Value)
+                        {
+                            
+                        }
+                    }
+                    
+                }
+                else
+                {
+                    detectarBorde();
+                    detectarCentro();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Debe cargar una imagen antes de buscar el borde", "Sin imagen", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+            detectarBorde();
+            numericSenCount.Value = 150;
+            if (imgout != null)
+            {
+                
+                Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+                Mat mat = new Mat();
+                CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+                var area = 0.0;
+                var AUX=0.0;    
+                for (int i = 0; i < contours.Size; i++)
+                {
+                    //area = CvInvoke.ContourArea(contours[i]);
+                   for(int j=0;j<contours.Size;j++)
+                    {
+                        area = CvInvoke.ContourArea(contours[i]);
+                        AUX = CvInvoke.ContourArea(contours[i + 1]);
+                        if (area>AUX)
+                        {
+
+                        }
+                    }
+                }
+
+            }
+            else
+            {
+                detectarBorde();
+                detectarCentro();
+            }
+            */
+
+            List<double> areas = new List<double>();
+
+            Emgu.CV.Util.VectorOfVectorOfPoint contours = new Emgu.CV.Util.VectorOfVectorOfPoint();
+            Mat mat = new Mat();
+            CvInvoke.FindContours(imgout, contours, mat, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
+            var area = 0.0;
+
+            for (int j = 0; j < contours.Size; j++)
+            {
+                areas.Add(CvInvoke.ContourArea(contours[j]));
+            }
+            areas.Reverse();
+            var blob = CvInvoke.BoundingRectangle(contours[0]);
+            blob.Y -= 5;
+            CvInvoke.PutText(img, "Calle", blob.Location, Emgu.CV.CvEnum.FontFace.HersheySimplex, 0.5, new MCvScalar(255, 255, 255));
 
         }
     }
